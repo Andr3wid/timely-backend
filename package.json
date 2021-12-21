@@ -1,0 +1,33 @@
+{
+  "name": "timely-backend",
+  "version": "1.0.0",
+  "description": "Backend for the time-tracking app 'timely'",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "nodemon --watch './src/**/*.ts' --exec 'ts-node' src/app.ts",
+    "test": "npx jest spec/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andr3wid/timely-backend.git"
+  },
+  "author": "Andreas Kogler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andr3wid/timely-backend/issues"
+  },
+  "homepage": "https://github.com/Andr3wid/timely-backend#readme",
+  "dependencies": {
+    "@types/winston": "^2.4.4",
+    "express": "^4.17.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}
