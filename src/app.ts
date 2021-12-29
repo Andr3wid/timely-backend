@@ -52,7 +52,11 @@ app.get('/timesheet/:username', (req, res) => {
 });
 
 app.post('/timesheet/:username', (req, res) => {
-    DbQueryService.addTimesheet(new TimesheetEntry(req.body.username, new Date(req.body.date), req.body.type))
+    DbQueryService.addTimesheet({
+            username: req.body.username, 
+            date: new Date(req.body.date), 
+            type: req.body.type
+        } as TimesheetEntry)
         .then(() => res.send('Entry added successfully'))
         .catch(err => {
             logger.info(`Error while adding timesheet entry:\n${err}`);
