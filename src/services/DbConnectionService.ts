@@ -15,10 +15,9 @@ sequelize
   .authenticate()
   .then(() => {
     logger.info("DB connection successful!");
+    return sequelize.sync();
   })
   .catch((err) => {
-    logger.error(
-      `Error while connecting to database:\n${err}\nShutting down service ...`
-    );
+    logger.error(`Database error:\n${err}\nShutting down service ...`);
     exit(1);
   });
