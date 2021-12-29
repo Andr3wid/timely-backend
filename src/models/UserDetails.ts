@@ -1,31 +1,34 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../services/DbConnectionService";
 
-export class UserDetails extends Model{
-    username: string;
-    pwHash: string;
-    lastLogin: Date;
-    clockedIn: boolean;
+export class UserDetails extends Model {
+  username: string;
+  pwHash: string;
+  lastLogin: Date;
+  clockedIn: boolean;
 }
 
-UserDetails.init({
+UserDetails.init(
+  {
     username: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     pwHash: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     lastLogin: {
-        type: DataTypes.DATE,
-        allowNull: true,
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     clockedIn: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-    }
-}, { 
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+  },
+  {
     sequelize,
-    modelName: 'UserDetails',
-});
+    modelName: "UserDetails",
+  }
+);
