@@ -1,15 +1,23 @@
-import express, { application } from 'express';
+import express from 'express';
 import { logger } from './services/LoggingService';
 import { DbQueryService } from './services/DbQueryService';
+import { TimesheetEntry } from './models/TimesheetEntry';
 
 const port = 3030;
 export const app = express();
 
+/*
+    === MIDDLEWARE ===
+*/
 app.use((req, res, next) => {
-    logger.info(`Incoming request on ${req.url}`);
+    logger.info(`request on ${req.url}`);
     next();
 });
 
+
+/*
+    === ROUTES ===
+*/
 app.get('/', (req, res) => {
     res.send('Timely backend service says hello! :)');
 });
@@ -19,6 +27,7 @@ app.get('/user/:username', (req, res) => {
         .then(userDetails => res.send(JSON.stringify(userDetails)))
         .catch(err => {
             logger.error(`Error in route /user/${req.params.username}: \n${err}`);
+            res.status(500).send(JSON.stringify(err));
         });
 });
 
@@ -38,11 +47,17 @@ app.get('/timesheet/:username', (req, res) => {
         .then(timeSheet => res.send(timeSheet))
         .catch(err => {
             logger.error(`Error in route /timesheet/${req.params.username}: \n${err}`);
+            res.status(500).send(JSON.stringify(err));
         });
 });
 
 app.post('/timesheet/:username', (req, res) => {
-
+    DbQueryService.addTimesheet(new TimesheetEntry(req.body.username, new Date(req.body.date), req.body.type))
+        .then(() => res.send('Entry added successfully'))
+        .catch(err => {
+            logger.info(`Error while adding timesheet entry:\n${err}`);
+            res.status(500).send(`Could not add timesheet entry:\n${err}`);
+        });
 });
 
 app.listen(port, () => {
