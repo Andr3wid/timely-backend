@@ -1,4 +1,4 @@
-import { Model, Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";
 import { logger } from "./LoggingService";
 import { exit } from "process";
 
