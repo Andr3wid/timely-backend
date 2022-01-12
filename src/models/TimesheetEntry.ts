@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../services/DbConnectionService";
+import { UserDetails } from "./UserDetails";
 
 export enum EntryType {
   CLOCK_IN = "clockin",
@@ -23,7 +24,7 @@ export class TimesheetEntry extends Model {
 TimesheetEntry.init(
   {
     id: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrementIdentity: true,
