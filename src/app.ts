@@ -5,6 +5,7 @@ import { TimesheetEntry } from "./models/TimesheetEntry";
 import { UserDetails } from "./models/UserDetails";
 
 const port = 3030;
+const authToken = process.env.AUTH_TOKEN;
 export const app = express();
 
 /*
@@ -13,6 +14,14 @@ export const app = express();
 app.use((req, res, next) => {
   logger.info(`request on ${req.url}`);
   next();
+});
+
+app.use((req, res, next) => {
+  if (req.headers.authorization === authToken) {
+    next();
+  } else {
+    res.status(403).send("Invalid auth token");
+  }
 });
 
 app.use(express.json());
