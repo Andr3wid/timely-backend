@@ -2,6 +2,7 @@ import express from "express";
 import { logger } from "./services/LoggingService";
 import { DbQueryService } from "./services/DbQueryService";
 import { TimesheetEntry } from "./models/TimesheetEntry";
+import { UserDetails } from "./models/UserDetails";
 
 const port = 3030;
 export const app = express();
@@ -13,6 +14,8 @@ app.use((req, res, next) => {
   logger.info(`request on ${req.url}`);
   next();
 });
+
+app.use(express.json());
 
 /*
     === ROUTES ===
@@ -58,7 +61,7 @@ app.get("/timesheet/:username", (req, res) => {
     });
 });
 
-app.post("/timesheet/:username", (req, res) => {
+app.post("/timesheet/entry", (req, res) => {
   DbQueryService.addTimesheet({
     username: req.body.username,
     date: new Date(req.body.date),

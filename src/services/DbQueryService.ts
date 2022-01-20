@@ -1,4 +1,6 @@
+import { ENETUNREACH } from "constants";
 import { TimesheetEntry } from "../models/TimesheetEntry";
+import { UserDetails } from "../models/UserDetails";
 import { sequelize } from "./DbConnectionService";
 
 export class DbQueryService {
@@ -10,25 +12,19 @@ export class DbQueryService {
     });
   }
 
-  public static addTimesheet(entry: TimesheetEntry): Promise<void> {
-    return new Promise((res, rej) => {
-      if (!TimesheetEntry.validate(entry)) {
-        rej(
-          `Invalid timesheet entry. Make sure username, date and type are set to valid values`
-        );
-      } else {
-        // sequelize.
-      }
-    });
+  public static addTimesheet(entry: TimesheetEntry): Promise<TimesheetEntry> {
+    if (!TimesheetEntry.validate(entry)) {
+      Promise.reject(
+        `Invalid timesheet entry. Make sure username, date and type are set to valid values`
+      );
+    } else {
+      return TimesheetEntry.build(entry).save();
+    }
   }
 
-  public static getUserDetails(username: string): Promise<Object> {
+  public static getUserDetails(username: string): Promise<UserDetails> {
     return new Promise((res, rej) => {
-      res({
-        username: username,
-        lastLogin: new Date(0),
-        timesheetEntries: -1,
-      });
+      res({} as UserDetails);
     });
   }
 }

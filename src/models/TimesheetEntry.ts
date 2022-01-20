@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../services/DbConnectionService";
 import { UserDetails } from "./UserDetails";
@@ -25,9 +26,8 @@ TimesheetEntry.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
-      autoIncrementIdentity: true,
+      autoIncrement: true,
     },
     username: {
       type: DataTypes.STRING,
