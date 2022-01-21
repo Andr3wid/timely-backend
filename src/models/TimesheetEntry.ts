@@ -33,7 +33,7 @@ TimesheetEntry.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date: {
+    timestamp: {
       type: DataTypes.DATE,
       allowNull: false,
     },
