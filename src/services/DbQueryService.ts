@@ -6,6 +6,7 @@ import { Op } from "sequelize";
 
 export class DbQueryService {
   public static getTimesheetByTimespan(from: Date, to: Date): Promise<any> {
+    to.setDate(to.getDate() + 1); // sets to 00:00 of next day, includes entries added in 'to'
     return TimesheetEntry.findAll({
       where: {
         timestamp: {
