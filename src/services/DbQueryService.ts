@@ -8,7 +8,7 @@ export class DbQueryService {
   public static getTimesheetByTimespan(from: Date, to: Date): Promise<any> {
     return TimesheetEntry.findAll({
       where: {
-        date: {
+        timestamp: {
           [Op.between]: [from, to],
         },
       },

@@ -73,7 +73,7 @@ app.get("/timesheet/:username", (req, res) => {
 app.post("/timesheet/entry", (req, res) => {
   DbQueryService.addTimesheet({
     username: req.body.username,
-    date: new Date(), // TODO: if requests queue up, this timestamp does not reflect the actual user-submitted time
+    timestamp: new Date(), // TODO: if requests queue up, this timestamp does not reflect the actual user-submitted time
     type: req.body.type,
   } as TimesheetEntry)
     .then(() => res.send("Entry added successfully"))
