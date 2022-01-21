@@ -2,13 +2,16 @@ import { ENETUNREACH } from "constants";
 import { TimesheetEntry } from "../models/TimesheetEntry";
 import { UserDetails } from "../models/UserDetails";
 import { sequelize } from "./DbConnectionService";
+import { Op } from "sequelize";
 
 export class DbQueryService {
   public static getTimesheetByTimespan(from: Date, to: Date): Promise<any> {
-    return new Promise((res, rej) => {
-      res(
-        `TODO: Implement\nWould've gotten timesheet entries from ${from} to ${to}`
-      );
+    return TimesheetEntry.findAll({
+      where: {
+        date: {
+          [Op.between]: [from, to],
+        },
+      },
     });
   }
 
